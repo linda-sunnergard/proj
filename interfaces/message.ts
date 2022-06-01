@@ -1,7 +1,11 @@
 export default interface Message {
-    header: string,
-    external_description: string,
-    geometry: Geometry,
-    start_date_time: string,
-    traffic_impact: Array<TrafficImpact>,
+    Header: string,
+    ExternalDescription: string,
+    Geometry: Geometry,
+    StartDateTime: string,
+    TrafficImpact: Array<TrafficImpact>,
+};
+
+export interface Geometry {
+    WGS84: string,
 };

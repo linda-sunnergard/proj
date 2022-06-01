@@ -1,8 +1,8 @@
-import config from "/../config/config.json";
+import config from "../config/config.json";
 
 const messageModel = {
-    getMessages: async function getMessages() {
-        return fetch(`${config.base_url}messages`)
+    getAllMessages: async function getAllMessages() {
+        return fetch(`${config.base_url}/messages`)
             .then(response => response.json())
             .then(result => result.data)
     },

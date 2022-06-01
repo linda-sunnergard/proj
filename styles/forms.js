@@ -1,18 +1,10 @@
 export const input = {
     fontSize: 20,
-    marginBottom: 28,
-    borderWidth: 1,
+    marginBottom: 15,
+    marginLeft: 15,
+    marginRight: 15,
+    borderWidth: 0.7,
     padding: 10,
-    borderColor: "#ccc",
+    borderColor: "#000000",
     borderRadius: 3,
 };
-
-export const buttons = {
-    flex: 0.2,
-    flexDirection: "column",
-    justifyContent: "space-between",
-}
-
-export const button = {
-  color: "black"
-}

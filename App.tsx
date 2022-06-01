@@ -5,63 +5,66 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import FlashMessage from "react-native-flash-message";
+import { Station } from "./interface/station";
+import { Message } from "./interface/message";
+import { DelayedTrain } from "./interface/DelayedTrain";
 
 import Home from "./components/home/Home";
+import TrainMap from "./components/map/TrainMap";
 
 import { Base, Typography } from './styles';
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-    <SafeAreaView style={{...Base.container}}>
-        <NavigationContainer>
-        <Tab.Navigator screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName = routeIcons[route.name] || "alert";
-  //
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-          tabBarActiveTintColor: '#D8D8D8',
-          tabBarInactiveTintColor: '#4D563A',
-          headerShown: false,
-          tabBarActiveBackgroundColor: '#5D894B',
-          tabBarInactiveBackgroundColor: '#5D894B',
-        })}
-        >
-        <Tab.Screen name="Home" style={{...Base.base}}>
-          {() => <Home products={products} setProducts={setProducts}
-          />}
-        </Tab.Screen>
-        <Tab.Screen name="Plock" style={{...Base.base}}>
-          {() => <Pick products={products} setProducts={setProducts} />}
-        </Tab.Screen>
-        <Tab.Screen name="Leveranser" style={{...Base.base}}>
-          {() => <Deliveries deliveries={deliveries} setDeliveries={setDeliveries} />}
-        </Tab.Screen>
-        {isLoggedIn ?
-           <Tab.Screen name="Faktura" style={{...Base.base}}>
-              {() => <Invoices invoices={invoices} setInvoices={setInvoices}
-              setIsLoggedIn = {setIsLoggedIn} />}
-            </Tab.Screen> :
-          <Tab.Screen name="Logga in" style={{...Base.base}}>
-            {() => <Auth setIsLoggedIn={setIsLoggedIn} />}
-          </Tab.Screen>
-        }
-        <Tab.Screen name="Skicka" style={{...Base.base}} component={Ship}>
-        </Tab.Screen>
-      </Tab.Navigator>
-        </NavigationContainer>
-        <StatusBar style="auto" />
-      <FlashMessage position="bottom" />
-      </SafeAreaView>
+    const [stations, setStations] = useState<Array<Station>>([]);
+    const [delayedTrains, setDelayedTrains] = useState<Array<DelayedTrain>>([]);
+    const [messages, setMessages] =useState<Array<Message>>([]);
+
+    return (
+        <SafeAreaView style={{...Base.container}}>
+            <NavigationContainer>
+                <Tab.Navigator screenOptions={({ route }) => ({
+                    tabBarIcon: ({ focused, color, size }) => {
+                        let iconName = routeIcons[route.name] || "alert";
+
+                        return <Ionicons name={iconName} size={size} color={color} />;
+                    },
+                    tabBarActiveTintColor: '#ccc',
+                    tabBarInactiveTintColor: '#000000',
+                    headerShown: false,
+                    tabBarActiveBackgroundColor: '#083b66',
+                    tabBarInactiveBackgroundColor: '#083b66',
+                })}>
+                    <Tab.Screen name="Stationer">
+                        {() => <Home
+                            stations={stations}
+                            setStations={setStations}
+                            delayedTrains={delayedTrains}
+                            setDelayedTrains={setDelayedTrains}
+                            messages={messages}
+                            setMessages={setMessages}
+                            />}
+                    </Tab.Screen>
+                    <Tab.Screen name="Karta">
+                        {() => <TrainMap
+                            stations={stations}
+                            setStations={setStations}
+                            delayedTrains={delayedTrains}
+                            setDelayedTrains={setDelayedTrains}
+                            messages={messages}
+                            setMessages={setMessages}
+                            />}
+                    </Tab.Screen>
+                </Tab.Navigator>
+            </NavigationContainer>
+            <StatusBar style="auto" />
+            <FlashMessage position="bottom" />
+        </SafeAreaView>
     );
   }
 
-  const routeIcons = {
-    "Lager": "leaf",
-    "Plock": "gift",
-    "Leveranser": "file-tray-full",
-    "Logga in": "lock-open",
-    "Faktura": "document-text-sharp",
-    "Skicka": "car"
-  };
+    const routeIcons = {
+        "Stationer": "train-sharp",
+        "Karta": "map",
+    };

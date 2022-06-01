@@ -1,6 +1,17 @@
 export const container = {
     flex: 1,
+    backgroundColor: "#fff",
 };
+
+export const center = {
+    justifyContent: "center",
+    alignItems: "center"
+}
+
+export const row = {
+    flexDirection: "row",
+    justifyContent: 'space-around',
+}
 
 export const padding = {
     paddingLeft: 12,
@@ -10,14 +21,6 @@ export const padding = {
 export const tab = {
     backgroundColor: "#667750",
 }
-
-export const text = {
-    color: '#000000',
-    fontSize: 42,
-    marginTop:10,
-    marginBottom: 10,
-    paddingLeft: 100,
-};
 
 export const stockMain = {
   paddingLeft: 110,
